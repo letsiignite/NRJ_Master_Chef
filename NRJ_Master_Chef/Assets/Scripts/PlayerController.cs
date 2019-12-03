@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     public string moveBack;
     public string moveRight;
     public string moveleft;
+    public string drop;
     #endregion
 
     #region private
     List<GameObject> items;
     bool nearTable;
     const float distanceForPickup = 1;
+    GameObject currentCustomer;
     #endregion
     // Use this for initialization
     void Start()
@@ -73,7 +75,10 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
         #region drop
-
+        if (Input.GetKey(drop) && currentCustomer !=null)
+        {
+            currentCustomer.GetComponent<Customer>().ItemDroped(items[0], this.gameObject);
+        }
         #endregion
     }
 
@@ -82,12 +87,21 @@ public class PlayerController : MonoBehaviour
         return items;
     }
 
+    public void SetPowerup()
+    {
+        //Choose a powerup at random
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("At " + other.name);
         if (other.tag == "table")
         {
             nearTable = true;
+        }
+
+        if (other.tag == "customer")
+        {
+            currentCustomer = other.gameObject;
         }
     }
 
@@ -96,6 +110,11 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "table")
         {
             nearTable = false;
+        }
+
+        if (other.tag == "customer")
+        {
+            currentCustomer = null;         // reset current customer
         }
     }
 }
