@@ -14,6 +14,7 @@ public class Customer : MonoBehaviour
     List<GameObject> order;
     bool isAngry;
     GameObject targetPlayer;
+    const int waitTimeMultiplyer = 20;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -51,5 +52,11 @@ public class Customer : MonoBehaviour
         isAngry = false;
         // Set power up for player
         targetPlayer.GetComponent<PlayerController>().SetPowerup();
+    }
+
+    public void SetMyOrder(List<GameObject> orderObj)
+    {
+        order = orderObj;
+        waitTime = orderObj.Count * waitTimeMultiplyer; // Set wait time for the customer
     }
 }
