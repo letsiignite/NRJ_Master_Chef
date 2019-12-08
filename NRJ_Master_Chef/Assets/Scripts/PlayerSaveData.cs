@@ -28,7 +28,7 @@ public class PlayerSaveData : MonoBehaviour
     {
         
         LoadPlayerData();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         Debug.Log(Application.persistentDataPath);
        // Invoke("test", 2);
     }
@@ -39,7 +39,7 @@ public class PlayerSaveData : MonoBehaviour
     public void SavePlayerData()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Create);
+        FileStream file = File.Open(Application.persistentDataPath + "/NRJ_gamesave.save", FileMode.Create);
 
         StorageData data = new StorageData();
         
@@ -54,9 +54,9 @@ public class PlayerSaveData : MonoBehaviour
     public void LoadPlayerData()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        if (File.Exists(Application.persistentDataPath + "/NRJ_gamesave.save"))
         {
-            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/NRJ_gamesave.save", FileMode.Open);
 
             StorageData data = new StorageData();
             data = (StorageData)bf.Deserialize(file);
@@ -64,7 +64,7 @@ public class PlayerSaveData : MonoBehaviour
             this.score = data.score;
             this.playerName = data.playerName;
             file.Close();
-            DisplayLeaderboard();
+            //DisplayLeaderboard();
 
             Debug.Log("#############################################");
             for (int i = 0; i < this.score.Length; i++)
@@ -80,7 +80,7 @@ public class PlayerSaveData : MonoBehaviour
         }
     }
 
-    public void OnTestSubmit(int playerScore, string id)
+    public void EndResult(int playerScore, string id)
     {
         float playerTime = (float)Math.Round(Time.time * 100f) / 100f; 
         int index = 0;
@@ -91,7 +91,7 @@ public class PlayerSaveData : MonoBehaviour
             Debug.Log(index+". "+ playerScore+" >= "+ this.score[index]);
             if (playerScore >= this.score[index])
             {
-                Debug.Log("playerTime = "+ playerTime);
+                //Debug.Log("playerTime = "+ playerTime);
                 if (playerScore == this.score[index] )
                 {
                     index++;
@@ -108,6 +108,7 @@ public class PlayerSaveData : MonoBehaviour
         if (index == this.score.Length)
         {
             Debug.Log("Current player did not enter top 10");
+            DisplayLeaderboard();
             return;
         }
 
@@ -156,7 +157,7 @@ public class PlayerSaveData : MonoBehaviour
         for (; index < 10; index++)
         {
             snoPlayerName[index].text = playerName[index];
-            playerScore[index].text = ""+ (float)Math.Round((score[index]) * 100f) / 100f;
+            playerScore[index].text = ""+ score[index];
             
         }
     }
