@@ -2,7 +2,7 @@
 Real world Real Test
 Unity 2018.1.0
 
-Instaruction:
+Instaruction:<br>
 1.      start the game by entering the names of 2players.
 2.      both player objects have script attached "PlayerController",which has the configurable movement keys.
 3.      Coloured cubes are vegetables. To pick, go closeto the vegetable and click on it.
